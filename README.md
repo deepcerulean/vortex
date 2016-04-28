@@ -8,7 +8,7 @@
 
 ## Description
 
-TODO: Description
+A simple example 2-d platformer for dedalus/joyce
 
 ## Features
 

@@ -6,7 +6,12 @@ if File.directory?(File.join(root,'.git'))
     begin
       require 'bundler/setup'
       require 'vortex'
-      Vortex::Application.kickstart!
+      Dedalus::PatternLibrary::Application.kickstart!({
+        setup: {
+          module_to_search: Vortex,
+          library_name: "Vortex Pattern Library"
+        }
+      })
     rescue LoadError => e
       warn e.message
       warn "Run `gem install bundler` to install Bundler"

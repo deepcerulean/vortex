@@ -1,6 +1,6 @@
 name: vortex
-summary: "TODO: Summary"
-description: "TODO: Description"
+summary: "fun platformer in ruby"
+description: "a nice 2-d platformer game"
 license: MIT
 authors: Joseph Weissman
 email: jweissman1986@gmail.com
