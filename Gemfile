@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'dedalus', path: '../dedalus'
+gem 'dedalus'
 
 group :development do
   gem 'kramdown'
