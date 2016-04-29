@@ -8,12 +8,16 @@ module Vortex
       grid.map do |row|
         row.map do |grid_value|
           if grid_value
-            image_palette[grid_value]
+            image_for(grid_value)
           else
             no_image
           end
         end
       end
+    end
+
+    def image_for(grid_value)
+      Icon.for(image_palette[grid_value])
     end
 
     def no_image
@@ -26,7 +30,7 @@ module Vortex
 
     def self.example_data
       {
-        image_palette: [ Icon.for(:house) ],
+        image_palette: [ :house ],
         grid: [
           [ nil, 0, 0, 0 ],
           [ 0, nil, 0, 0 ],

@@ -11,7 +11,7 @@ module Vortex
     def app_template
       ApplicationTemplate.new(
         greeting: greeting,
-        image_palette: [ Icon.for(:house) ],
+        image_palette: [ :house ],
         grid: grid
       )
     end
