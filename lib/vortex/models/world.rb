@@ -5,8 +5,8 @@ module Vortex
 
     # move to command?
     after_create do
-      self.width ||= 20
-      self.height ||= 20
+      self.width ||= 15
+      self.height ||= 15
       generate_map(width, height)
     end
 

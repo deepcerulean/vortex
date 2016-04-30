@@ -5,8 +5,6 @@ require 'vortex/version'
 require 'vortex/models/world'
 require 'vortex/models/map'
 
-require 'vortex/atoms/void'
-require 'vortex/molecules/image_grid'
 require 'vortex/templates/application_template'
 require 'vortex/screens/application_screen'
 
@@ -21,15 +19,12 @@ module Vortex
   class CreateWorldCommandHandler
     def handle(world_id:, name:)
       p [ :create_world! ]
-
       # world_map = Map.generate(10,10)
-
       World.create(
         id: world_id,
         name: name,
         # map: world_map
       )
-
       true
     end
   end

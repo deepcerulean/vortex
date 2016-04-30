@@ -2,7 +2,7 @@ module Vortex
   class ApplicationTemplate < Dedalus::Template
     include Dedalus::Elements
 
-    attr_accessor :greeting, :image_palette, :grid
+    attr_accessor :greeting, :grid
 
     def show
       layout do
@@ -18,7 +18,8 @@ module Vortex
     end
 
     def image_grid
-      ImageGrid.new(image_palette: image_palette, grid: grid)
+      p [ grid: grid ]
+      ImageGrid.new(tiles_path: 'media/images/tiles.png', grid: grid, tile_width: 64, tile_height: 64)
     end
 
     def self.description
@@ -27,8 +28,10 @@ module Vortex
 
     def self.example_data
       {
-        greeting: 'hi'
-      }.merge(ImageGrid.example_data)
+        greeting: 'hi',
+        grid: [[ 0, 1, 2, nil],
+               [ nil, 0, 1, 2]]
+      }
     end
   end
 end

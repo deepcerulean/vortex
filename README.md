@@ -6,6 +6,7 @@
 
 [![Code Climate GPA](https://codeclimate.com/github//vortex/badges/gpa.svg)](https://codeclimate.com/github//vortex)
 
+
 ## Description
 
 A simple example 2-d platformer for dedalus/joyce

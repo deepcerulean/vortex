@@ -3,6 +3,9 @@ module Vortex
     belongs_to :world
     attr_accessor :grid
 
+    EMPTY = nil
+    ROYAL_BLOCK, EMPTIUM, BRICK, CLOUD = *(0..3)
+
     def self.generate(width,height)
       create(grid: construct_grid(width,height))
     end
@@ -20,9 +23,9 @@ module Vortex
 
     def self.generate_cell(x,y)
       if y >= GROUND_LEVEL 
-        0 #:house
+        BRICK #:house
       else
-        nil
+        EMPTY
       end
     end
   end
