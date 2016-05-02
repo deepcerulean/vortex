@@ -2,12 +2,19 @@ module Vortex
   class ApplicationTemplate < Dedalus::Template
     include Dedalus::Elements
 
-    attr_accessor :greeting, :grid
+    attr_accessor :greeting, :grid, :scale, :player_location, :player_velocity
 
     def show
-      layout do
-        image_grid
-      end
+      layout { play_field }
+    end
+
+    def play_field
+      PlayField.new(
+        grid: grid,
+        player_location: player_location,
+        player_velocity: player_velocity,
+        scale: scale
+      )
     end
 
     def layout
@@ -15,11 +22,6 @@ module Vortex
         Heading.new(text: greeting),
         yield
       ]
-    end
-
-    def image_grid
-      p [ grid: grid ]
-      ImageGrid.new(tiles_path: 'media/images/tiles.png', grid: grid, tile_width: 64, tile_height: 64)
     end
 
     def self.description
@@ -30,7 +32,10 @@ module Vortex
       {
         greeting: 'hi',
         grid: [[ 0, 1, 2, nil],
-               [ nil, 0, 1, 2]]
+               [ nil, 0, 1, 2]],
+        scale: 0.3,
+        player_location: [3, 0],
+        player_velocity: [0,0]
       }
     end
   end
