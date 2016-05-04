@@ -1,9 +1,21 @@
 module Vortex
   class Player < Metacosm::Model
-    attr_accessor :name, :location, :velocity, :updated_at
-    belongs_to :world
+    attr_accessor :name, :location, :velocity, :color, :updated_at, :pinged_at
+    belongs_to :game
 
-    # before_update { self.updated_at ||= Time.now }
+    before_create :assign_color
+    
+    def assign_color
+      self.color ||= %w[ red green blue ].sample
+    end
+
+    def recompute_locations
+      update(updated_at: Time.now, location: compute_location, color: color)
+    end
+
+    def ping
+      update(pinged_at: Time.now, location: compute_location, updated_at: Time.now)
+    end
 
     def move(direction)
       if direction == :left

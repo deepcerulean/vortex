@@ -7,11 +7,11 @@ module Vortex
     ROYAL_BLOCK, EMPTIUM, BRICK, CLOUD = *(0..3)
 
     def self.generate(width,height)
-      create(grid: construct_grid(width,height))
+      create(grid: construct_grid(20,20)) # width,height))
     end
 
     protected
-    def self.construct_grid(width,height)
+    def self.construct_grid(width=20,height=20)
       Array.new(height) do |y|
         Array.new(width) do |x|
           generate_cell(x,y)

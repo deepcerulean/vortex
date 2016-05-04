@@ -2,11 +2,10 @@ module Vortex
   class World < Metacosm::Model
     attr_accessor :name, :width, :height
     has_one :map
-    has_many :players
+    belongs_to :game
 
-    # move to command?
     after_create do
-      self.width ||= 25
+      self.width  ||= 25
       self.height ||= 25
       generate_map(width, height)
     end
@@ -16,19 +15,23 @@ module Vortex
       emit(map_generated)
     end
 
-    def move_player(player_id:, direction:)
-      player = players.where(id: player_id).first
-      player.move(direction)
-    end
-
-    def halt_player(player_id:)
-      player = players.where(id: player_id).first
-      player.halt
+    def distribute_map
+      # p [ :distribute_map! ]
+      # ???
+      if self.map.nil?
+        generate_map(width, height)
+      else
+        emit(map_generated)
+      end
     end
 
     private
     def map_generated
-      MapGeneratedEvent.create(world_id: self.id, grid: map.grid)
+      MapGeneratedEvent.create(
+        world_id: self.id, 
+        grid: map.grid,
+        game_id: game.id
+      )
     end
   end
 end

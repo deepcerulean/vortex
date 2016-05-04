@@ -5,19 +5,30 @@ module Vortex
     attr_accessor :last_moved_player_at
 
     def setup(*)
-      fire(create_world)
-      fire(create_player)
+      # fire(create_world)
+      # fire(create_player)
 
+      GameView.create(active_player_id: player_id)
       sim.params[:active_player_id] ||= player_id
     end
 
     def tick
       # update all views...
       view.apply_velocities!
-      @last_moved_player_at ||= Time.now
-      if view.player_view.velocity != [0,0] && !(pressing?(Gosu::KbLeft) || pressing?(Gosu::KbRight))
+
+      if player_view && player_view.velocity != [0,0] && !(pressing?(Gosu::KbLeft) || pressing?(Gosu::KbRight))
         fire(halt_player)
       end
+
+      @ticks ||= 0
+      @ticks += 1
+      if (@ticks % 10 == 0)
+        fire(PingCommand.create(player_id: player_id, player_name: player_name))
+      end
+    end
+
+    def player_view
+      view.game_view.player_views.where(player_id: player_id).first #_or_create
     end
 
     def pressing?(key)
@@ -27,15 +38,17 @@ module Vortex
     def press(key)
       if key == Gosu::KbLeft
         fire(move_player(:left))
-        @last_moved_player_at = Time.now
       elsif key == Gosu::KbRight
         fire(move_player(:right))
-        @last_moved_player_at = Time.now
       end
     end
 
     def player_id
       @player_id ||= SecureRandom.uuid
+    end
+
+    def player_name
+      @player_name ||= %w[ Alice Bob Carol Dan Edgar Francine George Helga India Juanita Kramer ].sample
     end
 
     private
@@ -44,19 +57,23 @@ module Vortex
     end
 
     def create_player
-      CreatePlayerCommand.create(player_id: player_id, world_id: world_id, name: "Bob")
+      CreatePlayerCommand.create(player_id: player_id, game_id: game_view.game_id, name: "Bob")
     end
 
     def move_player(direction)
-      MovePlayerCommand.create(player_id: player_id, world_id: world_id, direction: direction)
+      MovePlayerCommand.create(player_id: player_id, game_id: game_view.game_id, direction: direction)
     end
 
     def halt_player
-      HaltPlayerCommand.create(player_id: player_id, world_id: world_id)
+      HaltPlayerCommand.create(player_id: player_id, game_id: game_view.game_id)
     end
 
-    def world_id
-      @world_id ||= SecureRandom.uuid
+    def game_view
+      GameView.find_by(active_player_id: player_id)
+    end
+
+    def self.connect_immediately?
+      true
     end
   end
 end

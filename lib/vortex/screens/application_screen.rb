@@ -2,7 +2,7 @@ module Vortex
   class ApplicationScreen < Dedalus::Screen
     include Dedalus::Elements
 
-    attr_accessor :grid, :mouse_position, :player_location, :player_velocity
+    attr_accessor :grid, :mouse_position, :active_player_name, :player_views
 
     def show
       layers
@@ -23,14 +23,12 @@ module Vortex
       ApplicationTemplate.new(
         greeting: greeting,
         grid: grid,
-        player_location: player_location,
-        player_velocity: player_velocity
-          # [25 - (Gosu::milliseconds / 1200.0),9]
+        player_views: player_views
       )
     end
 
     def greeting
-      "Hello there!"
+      "Hello #{active_player_name}!"
     end
   end
 end
