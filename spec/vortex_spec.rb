@@ -26,19 +26,4 @@ describe ApplicationTemplate do
   end
 end
 
-describe CreateWorldCommand do
-  let(:world_id) { 'the_world_id' }
-  let(:world_name) { 'the_world_name' }
-
-  subject(:create_world) do
-    CreateWorldCommand.create(world_id: world_id, name: world_name)
-  end
-
-  let(:world_created) do
-    WorldCreatedEvent.create(world_id: world_id, name: world_name)
-  end
-
-  it 'creates a world' do
-    expect(create_world).to trigger_event(world_created)
-  end
-end
+# TODO test commands/events...
