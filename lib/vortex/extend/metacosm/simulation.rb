@@ -1,3 +1,5 @@
+puts "---> loading mc sim override"
+
 module Metacosm
   class Simulation
     def redis_connection
@@ -11,6 +13,20 @@ module Metacosm
         puts "---> using default redis settings..."
         super
       end
+    end
+  end
+end
+
+module Joyce
+  class RemoteSim < Metacosm::RemoteSimulation
+    # def initialize
+    #   super(COMMAND_QUEUE, EVENT_STREAM)
+    # end
+  
+    def redis_connection
+      puts "--> remote sim, redis connection"
+      Metacosm::Simulation.new.redis_connection
+      # ::Redis.new
     end
   end
 end

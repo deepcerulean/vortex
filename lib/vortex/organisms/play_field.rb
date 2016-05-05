@@ -13,7 +13,7 @@ module Vortex
           hsh[player_view[:location]] += player_avatar(player_view).elements
           hsh
         end
-        p [ :sprite_map, map ]
+        # p [ :sprite_map, map ]
         map
       else
         {}

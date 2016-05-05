@@ -1,6 +1,10 @@
-# require 'dotenv'
-# Dotenv.load
-puts "HELLO FROM VORTEX"
+require 'dotenv'
+Dotenv.load
+
+# puts "HELLO FROM VORTEX"
+if !ENV['RACK_ENV'] # i.e., we are not on heroku
+  require 'gosu'
+end
 
 require 'dedalus'
 
@@ -80,12 +84,10 @@ module Vortex
     attr_accessor :player_id, :game_id, :name, :color, :location, :velocity, :updated_at
   end
 
-  class PlayerCreatedEventListener < AppEventListener # Metacosm::EventListener
+  class PlayerCreatedEventListener < AppEventListener
     def receive(game_id:, player_id:, name:, color:, location:, velocity:, updated_at:)
       p [ :player_created! ]
-      # game_view = GameView.where(game_id: game_id, active_player_id: simulation.params[:active_player_id]).first_or_create #player_id)
       game_view.update(game_id: game_id) if game_view.game_id.nil?
-      # game_view.create
       game_view.create_player_view(player_id: player_id, name: name, location: location, velocity: velocity, updated_at: updated_at, color: color)
     end
   end
@@ -97,7 +99,9 @@ module Vortex
   class MovePlayerCommandHandler
     def handle(player_id:, game_id:, direction:)
       game = Game.find(game_id)
-      game.move_player(player_id: player_id, direction: direction)
+      if game
+        game.move_player(player_id: player_id, direction: direction)
+      end
     end
   end
 
