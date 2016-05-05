@@ -121,9 +121,7 @@ DEPENDENCIES
   dedalus
   dotenv
   gosu
-  joyce
   kramdown
-  metacosm
   pry
   rake (~> 10.0)
   rspec (~> 3.0)

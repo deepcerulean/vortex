@@ -1,7 +1,6 @@
 require 'dotenv'
 Dotenv.load
 
-# puts "HELLO FROM VORTEX"
 if !ENV['RACK_ENV'] # i.e., we are not on heroku
   require 'gosu'
 end
@@ -26,8 +25,6 @@ require 'vortex/screens/application_screen'
 
 require 'vortex/application_view'
 require 'vortex/application'
-
-require 'vortex/extend/metacosm/simulation'
 
 module Vortex
   class PingCommand < Metacosm::Command
@@ -109,10 +106,8 @@ module Vortex
     attr_accessor :player_id, :game_id, :color, :location, :velocity, :updated_at, :name
   end
 
-  class PlayerUpdatedEventListener < AppEventListener # Metacosm::EventListener
+  class PlayerUpdatedEventListener < AppEventListener
     def receive(player_id:, game_id:, location:, velocity:, color:, updated_at:, name:)
-      # p [ :update_player, location: location, velocity: velocity ]
-      # game_view = GameView.find_by(game_id: game_id)
       player_view = game_view.player_views.where(player_id: player_id).first_or_create
       player_view.update(location: location, name: name, velocity: velocity, updated_at: updated_at, color: color)
     end
@@ -141,7 +136,6 @@ module Vortex
     end
 
     def tick
-      # p [ :server_tick! ]
       @ticks ||= 0
       @ticks = @ticks + 1
       Game.all.each(&:iterate!) if @ticks % 30 == 0
