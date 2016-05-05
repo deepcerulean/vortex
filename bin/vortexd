@@ -6,8 +6,11 @@ root = File.expand_path(File.join(File.dirname(__FILE__),'..'))
 if File.directory?(File.join(root,'.git'))
   Dir.chdir(root) do
     begin
+      puts "--> require bundler/setup"
       require 'bundler/setup'
+      puts "---> require vortex"
       require 'vortex'
+      puts "---> kickstart server!"
       Vortex::Server.kickstart!
     rescue LoadError => e
       warn e.message
