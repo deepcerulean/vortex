@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+puts "---> VORTEXD!!"
+
 root = File.expand_path(File.join(File.dirname(__FILE__),'..'))
 if File.directory?(File.join(root,'.git'))
   Dir.chdir(root) do

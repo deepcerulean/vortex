@@ -1,5 +1,6 @@
-require 'dotenv'
-Dotenv.load
+# require 'dotenv'
+# Dotenv.load
+puts "HELLO FROM VORTEX"
 
 require 'dedalus'
 
