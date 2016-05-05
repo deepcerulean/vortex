@@ -1,3 +1,6 @@
+require 'dotenv'
+Dotenv.load
+
 require 'dedalus'
 
 require 'vortex/version'
