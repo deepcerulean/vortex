@@ -96,15 +96,15 @@ module Vortex
   end
 
   class PlayerUpdatedEvent < Metacosm::Event
-    attr_accessor :player_id, :game_id, :color, :location, :velocity, :updated_at
+    attr_accessor :player_id, :game_id, :color, :location, :velocity, :updated_at, :name
   end
 
   class PlayerUpdatedEventListener < AppEventListener # Metacosm::EventListener
-    def receive(player_id:, game_id:, location:, velocity:, color:, updated_at:)
+    def receive(player_id:, game_id:, location:, velocity:, color:, updated_at:, name:)
       # p [ :update_player, location: location, velocity: velocity ]
       # game_view = GameView.find_by(game_id: game_id)
       player_view = game_view.player_views.where(player_id: player_id).first_or_create
-      player_view.update(location: location, velocity: velocity, updated_at: updated_at, color: color)
+      player_view.update(location: location, name: name, velocity: velocity, updated_at: updated_at, color: color)
     end
   end
 
