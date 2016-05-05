@@ -22,6 +22,8 @@ require 'vortex/screens/application_screen'
 require 'vortex/application_view'
 require 'vortex/application'
 
+require 'vortex/extend/metacosm/simulation'
+
 module Vortex
   class PingCommand < Metacosm::Command
     attr_accessor :player_id, :player_name
