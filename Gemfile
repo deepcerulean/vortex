@@ -7,7 +7,7 @@ gem 'dedalus'
 gem 'dotenv'
 gem 'sinatra'
 
-gem 'metacosm', path: '../metacosm'
+gem 'metacosm'
 
 group :development do
   gem 'kramdown'
