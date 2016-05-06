@@ -123,5 +123,17 @@ module Vortex
       end
     end
   end
-  # TODO ...
+
+  class PlayerDroppedEvent
+    attr_accessor :player_id
+  end
+
+  class PlayerDroppedEventListener
+    def receive(player_id:)
+      player_view = game_view.player_views.where(player_id: player_id)
+      if player_view
+        player_view.destroy
+      end
+    end
+  end
 end
