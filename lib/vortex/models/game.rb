@@ -45,8 +45,7 @@ module Vortex
 
       emit(
         PlayerDroppedEvent.create(
-          player_id: lost_player_id,
-          connected_player_list: connected_player_list
+          player_id: lost_player_id
         )
       )
     end
