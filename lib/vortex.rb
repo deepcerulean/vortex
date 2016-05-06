@@ -130,7 +130,7 @@ module Vortex
 
   class PlayerDroppedEventListener < AppEventListener
     def receive(player_id:)
-      player_view = game_view.player_views.where(player_id: player_id)
+      player_view = game_view.player_views.where(player_id: player_id).first
       if player_view
         player_view.destroy
       end
