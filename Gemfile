@@ -5,6 +5,7 @@ gemspec
 
 gem 'dedalus'
 gem 'dotenv'
+gem 'sinatra'
 
 group :development do
   gem 'kramdown'
