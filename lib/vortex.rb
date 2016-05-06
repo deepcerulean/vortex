@@ -136,4 +136,15 @@ module Vortex
       end
     end
   end
+
+  class JumpCommand < Metacosm::Command
+    attr_accessor :player_id #, :game_id
+  end
+
+  class JumpCommandHandler
+    def handle(player_id:) #, game_id:)
+      player = Player.find(player_id)
+      player.jump
+    end
+  end
 end

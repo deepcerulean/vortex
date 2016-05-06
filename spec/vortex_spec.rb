@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'timecop'
 require 'vortex'
 require 'metacosm/support/spec_harness'
 
@@ -27,3 +28,45 @@ describe ApplicationTemplate do
 end
 
 # TODO test commands/events...
+describe JumpCommand do
+  subject(:jump_command) do
+    JumpCommand.create(player_id: 'the_player_id')
+  end
+
+  let(:player_jumped) do
+    PlayerUpdatedEvent.create(
+      player_id: 'the_player_id',
+      velocity: [0.0,1],
+      color: 'color',
+      updated_at: Time.now,
+      game_id: 'the_game_id',
+      name: "Bob",
+      location: [ 5.0, 31.0 ]
+    )
+  end
+
+
+  after do
+    Timecop.return
+  end
+
+  before do
+    Timecop.freeze(Time.local(1990))
+    GameView.create(active_player_id: 'the_player_id')
+    Metacosm::Simulation.current.params[:active_player_id] = 'the_player_id'
+
+    game = Game.create(id: 'the_game_id')
+    game.create_player(
+      name: 'Bob',
+      id: 'the_player_id',
+      velocity: [0.0,0.0],
+      updated_at: Time.now,
+      location: [5.0,31.0],
+      color: 'color'
+    )
+  end
+
+  it 'should make the player jump' do
+    expect(jump_command).to trigger_event(player_jumped)
+  end
+end

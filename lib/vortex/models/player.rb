@@ -2,9 +2,8 @@ module Vortex
   class Player < Metacosm::Model
     attr_accessor :name, :location, :velocity, :color, :updated_at, :pinged_at
     belongs_to :game
-
     before_create :assign_color
-    
+
     def assign_color
       self.color ||= %w[ red green blue ].sample
     end
@@ -25,6 +24,11 @@ module Vortex
       else
         raise "Invalid direction #{direction}"
       end
+    end
+
+    def jump
+      vx,_ = *velocity
+      update(velocity: [vx, 1], location: compute_location, updated_at: Time.now)
     end
 
     def halt
