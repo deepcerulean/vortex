@@ -4,7 +4,8 @@
 * [Documentation](http://rubydoc.info/gems/vortex/frames)
 * [Email](mailto:jweissman1986 at gmail.com)
 
-[![Code Climate GPA](https://codeclimate.com/github//vortex/badges/gpa.svg)](https://codeclimate.com/github//vortex)
+[![Code Climate GPA](https://codeclimate.com/github/deepcerulean/vortex/badges/gpa.svg)](https://codeclimate.com/github/deepcerulean/vortex)
+[ ![Codeship Status for deepcerulean/vortex](https://codeship.com/projects/75145900-f534-0133-fe0e-1a6c3db727a0/status?branch=master)](https://codeship.com/projects/150314)
 
 
 ## Description
