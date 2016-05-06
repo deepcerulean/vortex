@@ -13,6 +13,8 @@ A simple example 2-d platformer for dedalus/joyce
 
 ## Features
 
+  - cd with codeship + heroku to deploy the server app
+
 ## Examples
 
     require 'vortex'
