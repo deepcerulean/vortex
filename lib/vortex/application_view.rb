@@ -34,17 +34,14 @@ module Vortex
 
     def player_view_data
       game_view.player_views.all.map do |pv|
-        # p [ player_view: pv ]
-        { 
+        {
           name: pv.name || "Anonymous",
-          velocity: pv.velocity || [0,0], 
+          velocity: pv.velocity || [0,0],
           location: pv.apparent_location || [1,1],
           updated_at: pv.updated_at || Time.now,
           color: pv.color || 'gray'
         } 
       end
-      # p [ player_view_data: player_view_data ]
-      # player_view_data
     end
 
     def world_view

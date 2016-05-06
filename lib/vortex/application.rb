@@ -5,9 +5,6 @@ module Vortex
     attr_accessor :last_moved_player_at
 
     def setup(*)
-      # fire(create_world)
-      # fire(create_player)
-
       GameView.create(active_player_id: player_id)
       sim.params[:active_player_id] ||= player_id
     end
@@ -22,13 +19,13 @@ module Vortex
 
       @ticks ||= 0
       @ticks += 1
-      if (@ticks % 10 == 0)
+      if (@ticks % 30 == 0)
         fire(PingCommand.create(player_id: player_id, player_name: player_name))
       end
     end
 
     def player_view
-      view.game_view.player_views.where(player_id: player_id).first #_or_create
+      view.game_view.player_views.where(player_id: player_id).first
     end
 
     def pressing?(key)

@@ -26,11 +26,11 @@ require 'vortex/screens/application_screen'
 require 'vortex/application_view'
 require 'vortex/application'
 
-module Vortex
-  class PingCommand < Metacosm::Command
-    attr_accessor :player_id, :player_name
-  end
+require 'vortex/server'
 
+require 'vortex/commands/ping_command'
+
+module Vortex
   class PingCommandHandler
     def handle(player_id:, player_name:)
       game = Game.find_by(players: { id: player_id })
@@ -58,7 +58,6 @@ module Vortex
   class WorldCreatedEventListener < AppEventListener # Metacosm::EventListener
     def receive(world_id:, name:, game_id:)
       p [ :world_created! ]
-      # game_view = GameView.where(game_id: game_id, active_player_id: simulation.params[:active_player_id]).first_or_create
       game_view.create_world_view(world_id: world_id, name: name)
     end
   end
@@ -67,10 +66,9 @@ module Vortex
     attr_accessor :world_id, :grid, :game_id
   end
 
-  class MapGeneratedEventListener < AppEventListener # Metacosm::EventListener
+  class MapGeneratedEventListener < AppEventListener
     def receive(world_id:, grid:, game_id:)
       p [ :map_generated! ]
-      # game_view = GameView.where(game_id: game_id, active_player_id: simulation.params[:active_player_id]).first_or_create
       world_view = game_view.world_view || game_view.create_world_view
       world_view.update(world_id: world_id, map_grid: grid)
       p [ :world_view, :updated_with_map!, world_view ]
@@ -125,20 +123,5 @@ module Vortex
       end
     end
   end
-
   # TODO ...
-  class Server < Joyce::Server
-    def setup
-      p [ :server_setup! ]
-      sim.disable_local_events
-      drive!
-      join
-    end
-
-    def tick
-      @ticks ||= 0
-      @ticks = @ticks + 1
-      Game.all.each(&:iterate!) if @ticks % 30 == 0
-    end
-  end
 end
