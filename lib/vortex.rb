@@ -124,11 +124,11 @@ module Vortex
     end
   end
 
-  class PlayerDroppedEvent
+  class PlayerDroppedEvent < Metacosm::Event
     attr_accessor :player_id
   end
 
-  class PlayerDroppedEventListener
+  class PlayerDroppedEventListener < AppEventListener
     def receive(player_id:)
       player_view = game_view.player_views.where(player_id: player_id)
       if player_view
