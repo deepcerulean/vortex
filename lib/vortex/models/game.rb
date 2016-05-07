@@ -8,16 +8,20 @@ module Vortex
     def iterate!
       # check for dropped players
       players_to_drop = players.all.select do |player|
-        player.pinged_at < 3.seconds.ago
+        if player
+          player.pinged_at < 3.seconds.ago
+        else
+          false # already dropped?
+        end
       end
 
       players_to_drop.each do |player|
-        drop_player(player)
+        drop_player(player) if player
       end
 
       # send world updates to everyone...
       players.each do |player| #(&:recompute_locations)
-        player.recompute_location(world.map)
+        player.recompute_location(world.map) if player
       end
 
       # TODO maybe only do this when a new player joins?

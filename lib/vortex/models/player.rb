@@ -9,8 +9,6 @@ module Vortex
     end
 
     def recompute_location #(map)
-      current = physics.at(Time.now)
-
       update(
         location: current.location,
         velocity: current.velocity,
@@ -26,23 +24,26 @@ module Vortex
     end
 
     def move(direction)
-      _,vy = *velocity
+      _,vy = *current.velocity
       if direction == :left
-        update(velocity: [-1,vy], location: compute_location, updated_at: Time.now)
+        update(velocity: [-1,vy], location: current.location, updated_at: Time.now)
       elsif direction == :right
-        update(velocity: [1,vy], location: compute_location, updated_at: Time.now)
+        update(velocity: [1,vy], location: current.location, updated_at: Time.now)
       else
         raise "Invalid direction #{direction}"
       end
     end
 
     def jump
-      vx,_ = *velocity
-      ax,_ = *acceleration
-      update(velocity: [vx,-1], acceleration: [ax,0.1], location: compute_location, updated_at: Time.now)
+      vx,_ = *current.velocity
+      ax,_ = *current.acceleration
+      update(velocity: [vx,-1], acceleration: [ax,0.1], location: current.location, updated_at: Time.now)
     end
 
     private
+    def current
+      physics.at(Time.now)
+    end
     def physics
       Physics.new(
         location: location,
