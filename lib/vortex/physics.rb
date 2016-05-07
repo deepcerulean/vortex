@@ -19,26 +19,28 @@ module Vortex
     end
 
     def at(t)
-      x,y = *location
+      x0,y0 = *location
       vx,vy = *velocity
       ax,ay = *acceleration
       # jx,jy = *jerk
 
-      if y >= ground_level
-        y = ground_level
+      dt = t - t0
+
+      vy += ay * dt
+      vx += ax * dt
+      x = x0 + (vx * dt)
+      y = y0 + (vy * dt)
+
+      if y >= ground_level - 0.1
+        y = ground_level - 0.2
         vy = 0
         ay = 0
         # jy = 0
       end
 
-      dt = t - t0
 
       # ax += jx * dt
       # ay += jy * dt
-      vy += ay * dt
-      vx += ax * dt
-      x += vx * dt
-      y += vy * dt
 
       Physics.new(
         location: [x,y],
