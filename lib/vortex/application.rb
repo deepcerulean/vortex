@@ -13,14 +13,10 @@ module Vortex
       # update all views...
       view.apply_velocities!
 
-      if player_view && player_view.velocity != [0,0] && !(pressing?(Gosu::KbLeft) || pressing?(Gosu::KbRight))
-        fire(halt_player)
-      end
-
       @ticks ||= 0
       @ticks += 1
-      if (@ticks % 30 == 0)
-        fire(PingCommand.create(player_id: player_id, player_name: player_name))
+      if (@ticks % 50 == 0)
+        fire(ping) #
       end
     end
 
@@ -42,6 +38,7 @@ module Vortex
       end
     end
 
+
     def player_id
       @player_id ||= SecureRandom.uuid
     end
@@ -51,10 +48,6 @@ module Vortex
     end
 
     private
-    def create_world
-      CreateWorldCommand.create(world_id: world_id, name: "Hello")
-    end
-
     def create_player
       CreatePlayerCommand.create(player_id: player_id, game_id: game_view.game_id, name: "Bob")
     end
@@ -63,8 +56,8 @@ module Vortex
       MovePlayerCommand.create(player_id: player_id, game_id: game_view.game_id, direction: direction)
     end
 
-    def halt_player
-      HaltPlayerCommand.create(player_id: player_id, game_id: game_view.game_id)
+    def ping
+      PingCommand.create(player_id: player_id, player_name: player_name)
     end
 
     def jump

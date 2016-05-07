@@ -111,18 +111,18 @@ module Vortex
     end
   end
 
-  class HaltPlayerCommand < Metacosm::Command
-    attr_accessor :player_id, :game_id
-  end
+  # class HaltPlayerCommand < Metacosm::Command
+  #   attr_accessor :player_id, :game_id
+  # end
 
-  class HaltPlayerCommandHandler
-    def handle(player_id:, game_id:)
-      game = Game.find(game_id)
-      if game
-        game.halt_player(player_id: player_id)
-      end
-    end
-  end
+  # class HaltPlayerCommandHandler
+  #   def handle(player_id:, game_id:)
+  #     game = Game.find(game_id)
+  #     if game
+  #       game.halt_player(player_id: player_id)
+  #     end
+  #   end
+  # end
 
   class PlayerDroppedEvent < Metacosm::Event
     attr_accessor :player_id

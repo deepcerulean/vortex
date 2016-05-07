@@ -10,7 +10,7 @@ module Vortex
     def tick
       @ticks ||= 0
       @ticks = @ticks + 1
-      Game.all.each(&:iterate!) if @ticks % 30 == 0
+      Game.all.each(&:iterate!) if @ticks % 50 == 0
     end
   end
 end
