@@ -8,7 +8,7 @@ module Vortex
       self.color ||= %w[ red green blue ].sample
     end
 
-    def recompute_location(map)
+    def recompute_location #(map)
       current = physics.at(Time.now)
 
       update(
@@ -21,7 +21,8 @@ module Vortex
     end
 
     def ping
-      update(pinged_at: Time.now, location: compute_location, updated_at: Time.now)
+      recompute_location
+      # update(pinged_at: Time.now, location: compute_location, updated_at: Time.now)
     end
 
     def move(direction)
