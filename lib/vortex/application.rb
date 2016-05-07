@@ -19,16 +19,14 @@ module Vortex
       view.game_view.player_views.where(player_id: player_id).first
     end
 
+
     def press(key)
-      if player_view
-        _,vy = player_view.velocity
-        if key == Gosu::KbLeft
-          fire(move_player(:left))
-        elsif key == Gosu::KbRight
-          fire(move_player(:right))
-        elsif key == Gosu::KbUp
-          fire(jump) if vy == 0 # could move to a command validation..?
-        end
+      if key == Gosu::KbLeft
+        fire(move_player(:left))
+      elsif key == Gosu::KbRight
+        fire(move_player(:right))
+      elsif key == Gosu::KbUp
+        fire(jump) # if vy == 0
       end
     end
 

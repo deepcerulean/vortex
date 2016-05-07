@@ -44,7 +44,7 @@ module Vortex
         game.create_player(
           id: player_id,
           name: player_name,
-          location: [15,9],
+          location: [15,GROUND_LEVEL],
           velocity: [0.0,0.0],
           acceleration: [0,0],
           updated_at: Time.now,
