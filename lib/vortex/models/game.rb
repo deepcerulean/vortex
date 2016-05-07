@@ -16,12 +16,12 @@ module Vortex
       end
 
       players_to_drop.each do |player|
-        drop_player(player) if player
+        drop_player(player)
       end
 
       # send world updates to everyone...
-      players.each do |player| #(&:recompute_locations)
-        player.recompute_location if player
+      players.each do |player|
+        player.recompute_location
       end
 
       # TODO maybe only do this when a new player joins?

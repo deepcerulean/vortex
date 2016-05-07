@@ -33,6 +33,8 @@ require 'vortex/server'
 require 'vortex/commands/ping_command'
 
 module Vortex
+  GROUND_LEVEL = 10
+
   class PingCommandHandler
     def handle(player_id:, player_name:)
       game = Game.find_by(players: { id: player_id })
@@ -121,18 +123,8 @@ module Vortex
     end
   end
 
-  # class HaltPlayerCommand < Metacosm::Command
-  #   attr_accessor :player_id, :game_id
-  # end
-
-  # class HaltPlayerCommandHandler
-  #   def handle(player_id:, game_id:)
-  #     game = Game.find(game_id)
-  #     if game
-  #       game.halt_player(player_id: player_id)
-  #     end
-  #   end
-  # end
+  # class PlayerMovedEvent < PlayerUpdatedEvent; end
+  # class PlayerJumpedEvent < PlayerUpdatedEvent; end
 
   class PlayerDroppedEvent < Metacosm::Event
     attr_accessor :player_id

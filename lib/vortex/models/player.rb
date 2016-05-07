@@ -20,7 +20,6 @@ module Vortex
 
     def ping
       recompute_location
-      # update(pinged_at: Time.now, location: compute_location, updated_at: Time.now)
     end
 
     def move(direction)
@@ -35,15 +34,17 @@ module Vortex
     end
 
     def jump
+      p [ :player_jump! ]
       vx,_ = *current.velocity
       ax,_ = *current.acceleration
-      update(velocity: [vx,-1], acceleration: [ax,0.1], location: current.location, updated_at: Time.now)
+      update(velocity: [vx,-1], acceleration: [ax,0.2], location: current.location, updated_at: Time.now)
     end
 
     private
     def current
       physics.at(Time.now)
     end
+
     def physics
       Physics.new(
         location: location,
@@ -52,10 +53,6 @@ module Vortex
         ground_level: 10,
         t0: updated_at
       )
-    end
-
-    def compute_location
-      physics.at(Time.now).location
     end
   end
 end

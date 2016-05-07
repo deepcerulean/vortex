@@ -40,7 +40,13 @@ module Vortex
       x += vx * dt
       y += vy * dt
 
-      Physics.new(location: [x,y], velocity: [vx,vy], acceleration: [ax,ay], t0: t, ground_level: ground_level)
+      Physics.new(
+        location: [x,y],
+        velocity: [vx,vy],
+        acceleration: [ax,ay],
+        t0: t,
+        ground_level: ground_level
+      )
 
     # rescue => ex
     #   require 'pry'

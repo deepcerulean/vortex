@@ -2,7 +2,7 @@ module Vortex
   class Application < Joyce::Application
     viewed_with Vortex::ApplicationView
 
-    attr_accessor :last_moved_player_at
+    # attr_accessor :last_moved_player_at
 
     def setup(*)
       GameView.create(active_player_id: player_id)
@@ -11,7 +11,8 @@ module Vortex
 
     def tick
       # update all views...
-      view.apply_velocities!
+      # should be done 'automatically' now, by calling .current before the attr
+      # view.apply_velocities!
 
       @ticks ||= 0
       @ticks += 1
@@ -24,9 +25,9 @@ module Vortex
       view.game_view.player_views.where(player_id: player_id).first
     end
 
-    def pressing?(key)
-      window.button_down?(key)
-    end
+    # def pressing?(key)
+    #   window.button_down?(key)
+    # end
 
     def press(key)
       if key == Gosu::KbLeft
