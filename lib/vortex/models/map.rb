@@ -3,6 +3,10 @@ module Vortex
     belongs_to :world
     attr_accessor :grid
 
+    def ground_level
+      GROUND_LEVEL
+    end
+
     EMPTY = nil
     ROYAL_BLOCK, EMPTIUM, BRICK, CLOUD = *(0..3)
 

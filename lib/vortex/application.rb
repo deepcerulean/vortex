@@ -37,6 +37,8 @@ module Vortex
         fire(move_player(:left))
       elsif key == Gosu::KbRight
         fire(move_player(:right))
+      elsif key == Gosu::KbUp
+        fire(jump)
       end
     end
 
@@ -63,6 +65,10 @@ module Vortex
 
     def halt_player
       HaltPlayerCommand.create(player_id: player_id, game_id: game_view.game_id)
+    end
+
+    def jump
+      JumpCommand.create(player_id: player_id)
     end
 
     def game_view

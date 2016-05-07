@@ -16,9 +16,12 @@ module Vortex
       end
 
       # send world updates to everyone...
-      players.each(&:recompute_locations)
+      players.each do |player| #(&:recompute_locations)
+        player.recompute_location(world.map)
+      end
 
       # TODO maybe only do this when a new player joins?
+      # seems excessive to ship it around all the time..
       world.distribute_map
     end
 
