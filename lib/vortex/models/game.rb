@@ -8,7 +8,7 @@ module Vortex
     def iterate!
       # check for dropped players
       players_to_drop = players.all.select do |player|
-        if player
+        if player && player.pinged_at
           player.pinged_at < 3.seconds.ago
         else
           false # already dropped?
