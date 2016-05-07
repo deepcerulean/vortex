@@ -1,6 +1,6 @@
 module Vortex
   class Player < Metacosm::Model
-    attr_accessor :name, :location, :velocity, :color, :updated_at, :pinged_at
+    attr_accessor :name, :location, :velocity, :acceleration, :color, :updated_at, :pinged_at
     belongs_to :game
     before_create :assign_color
 
@@ -9,23 +9,12 @@ module Vortex
     end
 
     def recompute_location(map)
-      x,y = compute_location
-      vx,vy = *velocity
-
-      # if our y position is <= map ground level 'beneath' me...
-      # zero out vy and set y to the top of the ground tile?
-      vy = vy + 0.25 # [0,vy + 0.25].max
-
-      if y >= map.ground_level
-        y = map.ground_level
-        vy = 0
-      end
-
-      # apply a little grav?
+      current = physics.at(Time.now)
 
       update(
-        location: [x,y],
-        velocity: [vx,vy],
+        location: current.location,
+        velocity: current.velocity,
+        acceleration: current.acceleration,
         updated_at: Time.now,
         color: color
       )
@@ -48,21 +37,23 @@ module Vortex
 
     def jump
       vx,_ = *velocity
-      update(velocity: [vx,-1], location: compute_location, updated_at: Time.now)
+      ax,_ = *acceleration
+      update(velocity: [vx,-1], acceleration: [ax,0.1], location: compute_location, updated_at: Time.now)
     end
 
-    # halt left/right movement...
-    def halt
-      _,vy = *velocity
-      update(velocity: [0,vy], location: compute_location, updated_at: Time.now)
+    private
+    def physics
+      Physics.new(
+        location: location,
+        velocity: velocity,
+        acceleration: acceleration,
+        ground_level: 10,
+        t0: updated_at
+      )
     end
 
     def compute_location
-      x,y = *location
-      vx,vy = *velocity
-      dt = Time.now - updated_at
-      dx,dy = dt*vx, dt*vy
-      [x+dx, y+dy]
+      physics.at(Time.now).location
     end
   end
 end

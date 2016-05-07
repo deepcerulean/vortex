@@ -41,7 +41,8 @@ describe JumpCommand do
       updated_at: Time.now,
       game_id: 'the_game_id',
       name: "Bob",
-      location: [ 5.0, 31.0 ]
+      acceleration: [0,0.1],
+      location: [ 5.0, 10.0 ]
     )
   end
 
@@ -60,6 +61,7 @@ describe JumpCommand do
       name: 'Bob',
       id: 'the_player_id',
       velocity: [0.0,0.0],
+      acceleration: [0,0],
       updated_at: Time.now,
       location: [5.0,31.0],
       color: 'color'

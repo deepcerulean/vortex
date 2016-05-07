@@ -12,14 +12,33 @@ module Vortex
     def apply_velocities!
       if game_view.player_views
         game_view.player_views.each do |player_view|
-          x,y = *(player_view.location || [0,0])
-          vx,vy = *(player_view.velocity || [0,0])
+          ground_level = 10 # ..
+          x, y = *player_view.location
+          vx, vy = *player_view.velocity
+          ax, ay = *player_view.acceleration
 
-          dt = Time.now - (player_view.updated_at || Time.now)
+          if y >= ground_level
+            y = ground_level 
+            vy = 0
+            ay = 0
+          end 
 
-          # dt is in secs, so sprite vels are in 'grid cells / sec'
-          dx,dy = dt*vx, dt*vy
-          player_view.update(apparent_location: [x+dx,y+dy])
+          physics = Physics.new(
+            location: [x,y],
+            velocity: [vx,vy],
+            acceleration: [ax,ay],
+            t0: player_view.updated_at,
+            ground_level: 10
+          )
+          # x,y = *(player_view.location || [0,0])
+          # vx,vy = *(player_view.velocity || [0,0])
+
+          # dt = Time.now - (player_view.updated_at || Time.now)
+
+          # # dt is in secs, so sprite vels are in 'grid cells / sec'
+          # dx,dy = dt*vx, dt*vy
+          apparent = physics.at(Time.now)
+          player_view.update(apparent_location: apparent.location, velocity: apparent.velocity, acceleration: apparent.acceleration) # [x+dx,y+dy])
         end
       end
     end
