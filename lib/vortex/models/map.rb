@@ -3,9 +3,9 @@ module Vortex
     belongs_to :world
     attr_accessor :grid
 
-    def ground_level
-      GROUND_LEVEL
-    end
+    # def ground_level
+    #   GROUND_LEVEL
+    # end
 
     EMPTY = nil
     ROYAL_BLOCK, EMPTIUM, BRICK, CLOUD = *(0..3)
@@ -23,10 +23,10 @@ module Vortex
       end
     end
 
-    GROUND_LEVEL = 10
+    # GROUND_LEVEL = 10
 
     def self.generate_cell(x,y)
-      if y >= GROUND_LEVEL 
+      if y > GROUND_LEVEL 
         BRICK #:house
       else
         EMPTY

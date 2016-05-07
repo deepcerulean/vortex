@@ -15,7 +15,7 @@ module Vortex
         velocity: velocity,
         acceleration: acceleration,
         t0: updated_at,
-        ground_level: 10
+        ground_level: Vortex::GROUND_LEVEL
       )
     end
   end

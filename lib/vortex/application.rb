@@ -2,18 +2,12 @@ module Vortex
   class Application < Joyce::Application
     viewed_with Vortex::ApplicationView
 
-    # attr_accessor :last_moved_player_at
-
     def setup(*)
       GameView.create(active_player_id: player_id)
       sim.params[:active_player_id] ||= player_id
     end
 
     def tick
-      # update all views...
-      # should be done 'automatically' now, by calling .current before the attr
-      # view.apply_velocities!
-
       @ticks ||= 0
       @ticks += 1
       if (@ticks % 50 == 0)
@@ -25,17 +19,16 @@ module Vortex
       view.game_view.player_views.where(player_id: player_id).first
     end
 
-    # def pressing?(key)
-    #   window.button_down?(key)
-    # end
-
     def press(key)
-      if key == Gosu::KbLeft
-        fire(move_player(:left))
-      elsif key == Gosu::KbRight
-        fire(move_player(:right))
-      elsif key == Gosu::KbUp
-        fire(jump)
+      if player_view
+        _,vy = player_view.velocity
+        if key == Gosu::KbLeft
+          fire(move_player(:left))
+        elsif key == Gosu::KbRight
+          fire(move_player(:right))
+        elsif key == Gosu::KbUp
+          fire(jump) if vy == 0 # could move to a command validation..?
+        end
       end
     end
 
