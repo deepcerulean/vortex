@@ -21,7 +21,7 @@ module Vortex
 
       # send world updates to everyone...
       players.each do |player| #(&:recompute_locations)
-        player.recompute_location(world.map) if player
+        player.recompute_location if player
       end
 
       # TODO maybe only do this when a new player joins?
