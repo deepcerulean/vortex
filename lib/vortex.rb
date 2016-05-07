@@ -118,7 +118,10 @@ module Vortex
   class PlayerUpdatedEventListener < AppEventListener
     def receive(player_id:, game_id:, location:, acceleration:, velocity:, color:, updated_at:, name:)
       player_view = game_view.player_views.where(player_id: player_id).first_or_create
-      p [ :player_updated, location: location, velocity: velocity, acceleration: acceleration ]
+      p [ :player_updated, 
+          location: location, 
+          location_diff: [player_view.location[0] - location[0], player_view.location[1] - location[1]],
+          velocity: velocity, acceleration: acceleration ] if player_view.location && location
       player_view.update(location: location, name: name, velocity: velocity, acceleration: acceleration, updated_at: updated_at, color: color)
     end
   end

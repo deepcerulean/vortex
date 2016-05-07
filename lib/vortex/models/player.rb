@@ -19,7 +19,7 @@ module Vortex
     end
 
     def ping
-      recompute_location
+      # recompute_location
     end
 
     def move(direction)
