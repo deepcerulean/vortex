@@ -14,13 +14,14 @@ module Vortex
 
       # if our y position is <= map ground level 'beneath' me...
       # zero out vy and set y to the top of the ground tile?
+      vy = vy + 0.25 # [0,vy + 0.25].max
+
       if y >= map.ground_level
         y = map.ground_level
         vy = 0
       end
 
       # apply a little grav?
-      vy = [0,vy + 0.1].max
 
       update(
         location: [x,y],
