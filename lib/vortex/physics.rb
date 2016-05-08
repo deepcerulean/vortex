@@ -24,7 +24,7 @@ module Vortex
 
     def inertia
       # really a fn of mass right?
-      0.98
+      0.998
     end
 
     def at(t)
@@ -36,7 +36,6 @@ module Vortex
       # now gravity is handled separately...
       ax *= inertia
       ay *= inertia
-      # jx,jy = *jerk
 
       dt = t - t0
 
@@ -53,10 +52,6 @@ module Vortex
       else # if not, apply gravity...
         vy += gravity * dt
       end
-
-
-      # ax += jx * dt
-      # ay += jy * dt
 
       Physics.new(
         location: [x,y],

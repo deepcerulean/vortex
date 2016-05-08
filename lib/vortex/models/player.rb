@@ -26,9 +26,9 @@ module Vortex
       # _,vy = *current.velocity
       _,ay = *current.acceleration
       if direction == :left
-        update(acceleration: [-0.1,ay], location: current.location, updated_at: Time.now)
+        update(acceleration: [-2,ay], location: current.location, updated_at: Time.now)
       elsif direction == :right
-        update(acceleration: [0.1,ay], location: current.location, updated_at: Time.now)
+        update(acceleration: [2,ay], location: current.location, updated_at: Time.now)
       else
         raise "Invalid direction #{direction}"
       end
@@ -38,7 +38,7 @@ module Vortex
       p [ :player_jump! ]
       # vx,_ = *current.velocity
       ax,_ = *current.acceleration
-      update(acceleration: [ax,-0.1], location: current.location, updated_at: Time.now)
+      update(acceleration: [ax,-5], location: current.location, updated_at: Time.now)
     end
 
     private
