@@ -33,18 +33,18 @@ module Vortex
 
       dt = t - t0
       
-      fric = friction * dt
-      speed = vx0.abs
+      # fric = friction * dt
+      # speed = vx0.abs
 
-      sign = vx0 > 0 ? 1.0 : (vx0 < 0 ? -1.0 : 0.0)
-      stopping_distance = (vx0 ** 2) / (2 * friction)
+      # sign = vx0 > 0 ? 1.0 : (vx0 < 0 ? -1.0 : 0.0)
+      # stopping_distance = (vx0 ** 2) / (2 * friction)
 
-      if fric < (speed/1.7)
-        vx0 += (fric * -sign)
-      else
-        x0 += stopping_distance/2 * sign
-        vx0 = 0
-      end
+      # if fric < (speed/1.7)
+      #   vx0 += (fric * -sign)
+      # else
+      #   x0 += stopping_distance/2 * sign
+      #   vx0 = 0
+      # end
 
       fx,fy = [ax,ay+gravity]
 
