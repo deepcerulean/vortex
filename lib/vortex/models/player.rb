@@ -16,14 +16,11 @@ module Vortex
         acceleration: curr.acceleration,
         color: color,
         updated_at: Time.now,
-        # pinged_at: Time.now
       )
     end
 
     def ping
-      # update(pinged_at: Time.now)
-      # recompute_location
-      updated(pinged_at: Time.now)
+      update(pinged_at: Time.now)
     end
 
     def move(direction)
