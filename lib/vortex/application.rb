@@ -13,24 +13,31 @@ module Vortex
       if (@ticks % 50 == 0)
         fire(ping) #
       end
+
+      if window.button_down?(Gosu::KbLeft)
+        fire(move_player(:left))
+      elsif window.button_down?(Gosu::KbRight)
+        fire(move_player(:right))
+      end
+
+      if window.button_down?(Gosu::KbUp)
+        fire(jump)
+      end
     end
 
     def player_view
       view.game_view.player_views.where(player_id: player_id).first
     end
 
-
     def press(key)
       if key == Gosu::KbLeft
         fire(move_player(:left))
       elsif key == Gosu::KbRight
         fire(move_player(:right))
-      elsif key == Gosu::KbUp
-        _,ay = *player_view.acceleration
-        if ay == 0 && !((@last_jumped_at ||= Time.now) > 1.second.ago)
-          fire(jump)
-          @last_jumped_at = Time.now
-        end
+      end
+
+      if key == Gosu::KbUp
+        fire(jump)
       end
     end
 
@@ -66,7 +73,7 @@ module Vortex
 
     def self.connect_immediately?
       p [ :connect_immediately? ]
-      true
+      false
     end
   end
 end

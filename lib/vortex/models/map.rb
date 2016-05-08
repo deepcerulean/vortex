@@ -26,7 +26,7 @@ module Vortex
     # GROUND_LEVEL = 10
 
     def self.generate_cell(x,y)
-      if y > GROUND_LEVEL 
+      if y > GROUND_LEVEL + 1
         BRICK #:house
       else
         EMPTY

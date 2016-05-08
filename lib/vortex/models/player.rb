@@ -9,12 +9,13 @@ module Vortex
     end
 
     def recompute_location #(map)
+      curr = current
       update(
-        location: current.location,
-        velocity: current.velocity,
-        acceleration: current.acceleration,
+        location: curr.location,
+        velocity: curr.velocity,
+        acceleration: curr.acceleration,
+        color: color,
         updated_at: Time.now,
-        color: color
       )
     end
 
@@ -23,12 +24,12 @@ module Vortex
     end
 
     def move(direction)
-      # _,vy = *current.velocity
-      _,ay = *current.acceleration
+      _,vy = *current.velocity
+      # _,ay = *current.acceleration
       if direction == :left
-        update(acceleration: [-2,ay], location: current.location, updated_at: Time.now)
+        update(velocity: [-3,vy], acceleration: current.acceleration, location: current.location, updated_at: Time.now)
       elsif direction == :right
-        update(acceleration: [2,ay], location: current.location, updated_at: Time.now)
+        update(velocity: [3,vy], acceleration: current.acceleration, location: current.location, updated_at: Time.now)
       else
         raise "Invalid direction #{direction}"
       end
@@ -36,9 +37,12 @@ module Vortex
 
     def jump
       p [ :player_jump! ]
-      # vx,_ = *current.velocity
-      ax,_ = *current.acceleration
-      update(acceleration: [ax,-5], location: current.location, updated_at: Time.now)
+      vx,vy = *current.velocity
+      if vy == 0
+        update(velocity: [vx,-15], acceleration: current.acceleration, location: current.location, updated_at: Time.now)
+      else
+        false
+      end
     end
 
     private
