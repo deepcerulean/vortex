@@ -19,34 +19,12 @@ module Vortex
     end
 
     def gravity
-      9.8 #.8
+      98
     end
 
-      # # dry friction...
     def friction
-      6.0
+      7.0 #.0
     end
-
-    # def friction(v0,dt, coeff: 5.2)
-    #   # 0.05  * 
-    #   fr = coeff * dt
-    #   speed = v0.abs
-
-    #   decel = fr * -(v0 / speed)
-    #   stopping_distance = (v0 ** 2) / (2 * coeff) # decel # speed # / decel # dt
-
-    #   if fr < speed
-    #     decel
-    #     # fr * -(v0 / speed)
-    #   elsif (speed*dt) > stopping_distance
-    #     p [ :stopping_distance! ]
-    #     -v0
-    #   end
-    # end
-
-    # def inertia(a,dt,coeff:2.0,threshold:0.1)
-    #   da = dt*coeff
-    # end
 
     def at(t)
       x0,y0 = *location
@@ -55,30 +33,20 @@ module Vortex
 
       dt = t - t0
       
-      g = gravity
-
       fric = friction * dt
       speed = vx0.abs
 
-      # how long does it take (from t0...) for friction to reduce speed to zero?
-      # is dt > that?
-      # stopping_time = t0 + (stopping_distance
-
       sign = vx0 > 0 ? 1.0 : (vx0 < 0 ? -1.0 : 0.0)
-      stopping_distance = (vx0 ** 2) / (2 * friction) # why g??
+      stopping_distance = (vx0 ** 2) / (2 * friction)
 
-      # stop_time 
-      if fric < (speed/1.6)
-        vx0 += (fric * -sign) # -(vx0 / speed))
-      else # dt > stopping_time # speed #stopping_distance
-        # p [ :stopping_distance]
-        x0 += stopping_distance/2 * sign  #(vx0/speed)
+      if fric < (speed/1.7)
+        vx0 += (fric * -sign)
+      else
+        x0 += stopping_distance/2 * sign
         vx0 = 0
       end
 
-      # fric = friction(vx0,dt)
-
-      fx,fy = [ax,ay+g]
+      fx,fy = [ax,ay+gravity]
 
       vx = vx0 + (fx * dt)
       vy = vy0 + (fy * dt)
@@ -91,7 +59,6 @@ module Vortex
         vy = 0
         ay = 0
       end
-
 
       Physics.new(
         location: [x,y],

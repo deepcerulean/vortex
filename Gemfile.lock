@@ -36,7 +36,7 @@ GEM
       gherkin (~> 2.4.0)
       json (>= 1.4.6)
       term-ansicolor (>= 1.0.5)
-    dedalus (0.2.8)
+    dedalus (0.2.9)
       geometer (~> 0.1)
       joyce (~> 0.1)
     diff-lcs (1.2.5)
