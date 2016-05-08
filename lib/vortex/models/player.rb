@@ -39,7 +39,7 @@ module Vortex
       p [ :player_jump! ]
       vx,vy = *current.velocity
       if vy == 0
-        update(velocity: [vx,-15], acceleration: current.acceleration, location: current.location, updated_at: Time.now)
+        update(velocity: [vx,-6], acceleration: current.acceleration, location: current.location, updated_at: Time.now)
       else
         false
       end
