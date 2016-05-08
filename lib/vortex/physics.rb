@@ -18,10 +18,24 @@ module Vortex
       @t0 = t0
     end
 
+    def gravity
+      9.8
+    end
+
+    def inertia
+      # really a fn of mass right?
+      0.98
+    end
+
     def at(t)
       x0,y0 = *location
       vx,vy = *velocity
       ax,ay = *acceleration
+
+      # slowly bleed away accelerating forces, since
+      # now gravity is handled separately...
+      ax *= inertia
+      ay *= inertia
       # jx,jy = *jerk
 
       dt = t - t0
@@ -31,11 +45,13 @@ module Vortex
       x = x0 + (vx * dt)
       y = y0 + (vy * dt)
 
+      # are we standing on something?
       if y >= ground_level - 0.1
         y = ground_level - 0.2
         vy = 0
         ay = 0
-        # jy = 0
+      else # if not, apply gravity...
+        vy += gravity * dt
       end
 
 

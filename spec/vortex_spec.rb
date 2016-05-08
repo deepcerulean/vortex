@@ -36,12 +36,12 @@ describe JumpCommand do
   let(:player_jumped) do
     PlayerUpdatedEvent.create(
       player_id: 'the_player_id',
-      velocity: [0.0,-5],
+      velocity: [0.0,0.0],
       color: 'color',
       updated_at: Time.now,
       game_id: 'the_game_id',
       name: "Bob",
-      acceleration: [0,9.8],
+      acceleration: [0,-0.1],
       location: [ 5.0, 9.0 ]
     )
   end
