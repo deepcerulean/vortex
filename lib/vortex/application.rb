@@ -26,7 +26,11 @@ module Vortex
       elsif key == Gosu::KbRight
         fire(move_player(:right))
       elsif key == Gosu::KbUp
-        fire(jump) # if vy == 0
+        _,ay = *player_view.acceleration
+        if ay == 0 && !((@last_jumped_at ||= Time.now) > 1.second.ago)
+          fire(jump)
+          @last_jumped_at = Time.now
+        end
       end
     end
 
