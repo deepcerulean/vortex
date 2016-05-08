@@ -7,10 +7,21 @@ module Vortex
       sim.params[:active_player_id] ||= player_id
     end
 
+    def fire(cmd)
+      @last_sent ||= 2.seconds.ago # Time.now
+      elapsed = Time.now - @last_sent
+      if elapsed > 0.1
+        super(cmd)
+        @last_sent = Time.now
+      else
+        p [ :rate_limited!] 
+      end
+    end
+
     def tick
       @ticks ||= 0
       @ticks += 1
-      if (@ticks % 50 == 0)
+      if (@ticks % 30 == 0)
         fire(ping) #
       end
 

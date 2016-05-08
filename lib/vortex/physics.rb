@@ -23,7 +23,7 @@ module Vortex
     end
 
     def friction
-      7.0 #.0
+      10.0 #.0
     end
 
     def at(t)

@@ -20,16 +20,16 @@ module Vortex
     end
 
     def ping
-      # recompute_location
+      recompute_location
     end
 
     def move(direction)
       _,vy = *current.velocity
       # _,ay = *current.acceleration
       if direction == :left
-        update(velocity: [-6,vy], acceleration: current.acceleration, location: current.location, updated_at: Time.now)
+        update(velocity: [-move_rate,vy], acceleration: current.acceleration, location: current.location, updated_at: Time.now)
       elsif direction == :right
-        update(velocity: [6,vy], acceleration: current.acceleration, location: current.location, updated_at: Time.now)
+        update(velocity: [move_rate,vy], acceleration: current.acceleration, location: current.location, updated_at: Time.now)
       else
         raise "Invalid direction #{direction}"
       end
@@ -49,6 +49,11 @@ module Vortex
     end
 
     protected
+
+    def move_rate
+      5
+    end
+
     def jump_power
       9
     end
