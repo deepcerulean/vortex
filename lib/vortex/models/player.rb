@@ -50,7 +50,7 @@ module Vortex
 
     protected
     def jump_power
-      30
+      3
     end
 
     private
