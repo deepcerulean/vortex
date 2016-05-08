@@ -84,7 +84,7 @@ module Vortex
 
     def self.connect_immediately?
       p [ :connect_immediately? ]
-      true
+      false
     end
   end
 end

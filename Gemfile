@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'dedalus'
+gem 'dedalus', path: '../dedalus'
 gem 'dotenv'
 gem 'sinatra'
 

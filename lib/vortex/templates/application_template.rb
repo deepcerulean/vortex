@@ -2,7 +2,7 @@ module Vortex
   class ApplicationTemplate < Dedalus::Template
     include Dedalus::Elements
 
-    attr_accessor :greeting, :grid, :scale, :player_views # :player_location, :player_velocity
+    attr_accessor :greeting, :grid, :scale, :player_views, :camera_location
 
     def show
       layout { play_field }
@@ -11,8 +11,7 @@ module Vortex
     def play_field
       PlayField.new(
         grid: grid,
-        # player_location: player_location,
-        # player_velocity: player_velocity,
+        camera_location: camera_location,
         scale: scale,
         player_views: player_views
       )
