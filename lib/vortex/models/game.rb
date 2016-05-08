@@ -9,7 +9,9 @@ module Vortex
       # check for dropped players
       players_to_drop = players.all.select do |player|
         if player && player.pinged_at
-          player.pinged_at < 3.seconds.ago
+          time_since_ping = Time.now - player.pinged_at
+          time_since_ping > 3.seconds
+          # player.pinged_at < 3.seconds.ago
         else
           false # already dropped?
         end

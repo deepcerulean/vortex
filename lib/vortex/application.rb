@@ -10,7 +10,7 @@ module Vortex
     def fire(cmd)
       @last_sent ||= 2.seconds.ago # Time.now
       elapsed = Time.now - @last_sent
-      if elapsed > 0.1
+      if elapsed > 0.01
         super(cmd)
         @last_sent = Time.now
       else
