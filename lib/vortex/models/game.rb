@@ -34,12 +34,12 @@ module Vortex
     def ping(player_id:)
       p [ ping_from: player_id ]
       player = players.where(id: player_id).first
-      player.ping
+      player.ping if player
     end
 
     def move_player(player_id:, direction:)
       player = players.where(id: player_id).first
-      player.move(direction)
+      player.move(direction) if player
     end
 
     def halt_player(player_id:)
