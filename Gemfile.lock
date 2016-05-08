@@ -1,11 +1,4 @@
 PATH
-  remote: ../dedalus
-  specs:
-    dedalus (0.2.11)
-      geometer (~> 0.1)
-      joyce (~> 0.1)
-
-PATH
   remote: .
   specs:
     vortex (0.1.0)
@@ -43,6 +36,9 @@ GEM
       gherkin (~> 2.4.0)
       json (>= 1.4.6)
       term-ansicolor (>= 1.0.5)
+    dedalus (0.2.12)
+      geometer (~> 0.1)
+      joyce (~> 0.1)
     diff-lcs (1.2.5)
     docile (1.1.5)
     dotenv (2.1.1)
@@ -130,7 +126,7 @@ DEPENDENCIES
   bundler (~> 1.10)
   codeclimate-test-reporter (~> 0.1)
   cucumber (~> 0.10.2)
-  dedalus!
+  dedalus
   dotenv
   gosu
   kramdown
