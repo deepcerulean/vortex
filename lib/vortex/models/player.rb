@@ -16,6 +16,7 @@ module Vortex
         acceleration: curr.acceleration,
         color: color,
         updated_at: Time.now,
+        pinged_at: Time.now
       )
     end
 
