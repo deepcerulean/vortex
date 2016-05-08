@@ -41,7 +41,7 @@ describe JumpCommand do
       updated_at: Time.now,
       game_id: 'the_game_id',
       name: "Bob",
-      acceleration: [0,-0.1],
+      acceleration: [0,-5],
       location: [ 5.0, 9.0 ]
     )
   end

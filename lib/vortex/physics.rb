@@ -19,7 +19,7 @@ module Vortex
     end
 
     def gravity
-      9.8
+      1.8
     end
 
     def inertia
