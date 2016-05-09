@@ -12,7 +12,7 @@ module Vortex
 
     def camera
       if active_player_view
-        p [ camera_at: active_player_view.current.location ]
+        # p [ camera_at: active_player_view.current.location ]
         # cam
         cx, cy = *active_player_view.current.location
         # screen center ('middle')

@@ -5,7 +5,7 @@ module Vortex
     belongs_to :game
 
     after_create do
-      self.width  ||= 25
+      self.width  ||= 200
       self.height ||= 25
       generate_map(width, height)
     end
@@ -16,8 +16,6 @@ module Vortex
     end
 
     def distribute_map
-      # p [ :distribute_map! ]
-      # ???
       if self.map.nil?
         generate_map(width, height)
       else
@@ -28,7 +26,7 @@ module Vortex
     private
     def map_generated
       MapGeneratedEvent.create(
-        world_id: self.id, 
+        world_id: self.id,
         grid: map.grid,
         game_id: game.id
       )

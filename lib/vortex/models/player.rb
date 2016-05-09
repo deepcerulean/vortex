@@ -25,7 +25,6 @@ module Vortex
 
     def move(direction)
       _,vy = *current.velocity
-      # _,ay = *current.acceleration
       if direction == :left
         update(velocity: [-move_rate,vy], acceleration: current.acceleration, location: current.location, updated_at: Time.now)
       elsif direction == :right
@@ -41,7 +40,6 @@ module Vortex
       vx,vy = *current.velocity
       if vy == 0
         vy = -jump_power
-        # jv *= 1.3 if vx == 0
         update(velocity: [vx,vy], acceleration: current.acceleration, location: current.location, updated_at: Time.now)
       else
         false
@@ -55,7 +53,7 @@ module Vortex
     end
 
     def jump_power
-      9
+      32
     end
 
     private

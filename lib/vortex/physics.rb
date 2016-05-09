@@ -19,11 +19,11 @@ module Vortex
     end
 
     def gravity
-      9.8
+      100.0
     end
 
     def friction
-      10.0 #.0
+      5.0 #.0
     end
 
     def at(t)

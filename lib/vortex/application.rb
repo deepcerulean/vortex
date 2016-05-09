@@ -14,7 +14,7 @@ module Vortex
         super(cmd)
         @last_sent = Time.now
       else
-        p [ :rate_limited!] 
+        # p [ :rate_limited!]
       end
     end
 
@@ -84,7 +84,7 @@ module Vortex
 
     def self.connect_immediately?
       p [ :connect_immediately? ]
-      true
+      false
     end
   end
 end
