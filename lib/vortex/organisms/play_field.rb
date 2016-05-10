@@ -35,7 +35,10 @@ module Vortex
                [0,0,0,0,0],
                Array.new(5) { nil },
                [1,1,1,1,nil]],
-        scale: 0.3,
+        scale: 1.0,
+        tiles_path: "media/images/tiles.png",
+        tile_width: 64,
+        tile_height: 64,
         camera_location: [2,2],
         player_views: [{ location: [4,2], velocity: [-0.2,0] }]
       }

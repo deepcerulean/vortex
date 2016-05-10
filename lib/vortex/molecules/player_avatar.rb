@@ -18,8 +18,8 @@ module Vortex
         frame: frame,
         invert_x: invert_x,
         overlay_color: overlay_color,
-        width: 64,
-        height: 64,
+        asset_width: 64,
+        asset_height: 64,
         scale: 2.0
       )
     end
