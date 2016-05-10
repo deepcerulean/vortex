@@ -49,11 +49,11 @@ module Vortex
     protected
 
     def move_rate
-      5
+      10
     end
 
     def jump_power
-      32
+      42
     end
 
     private
