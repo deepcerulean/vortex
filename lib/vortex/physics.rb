@@ -53,8 +53,8 @@ module Vortex
       y = y0 + (vy * dt) # + ((0.5) * fy * (dt**2))
 
       # are we standing on something?
-      if y > ground_level # + 0.2
-        y = ground_level # - 0.2
+      if y > ground_level - 2 # + 0.2
+        y = ground_level - 2 # - 0.2
         vy = 0
         ay = 0
       end

@@ -6,9 +6,16 @@ module Vortex
         mouse_position: mouse_position, 
         player_views: player_view_data,
         active_player_name: application.player_name,
-        camera_location: camera
+        camera_location: camera,
+        scale: scale
       )
     end
+
+    def scale
+      0.5
+    end
+
+    def tile_size; 64 * scale end
 
     def camera
       if active_player_view
@@ -16,7 +23,7 @@ module Vortex
         # cam
         cx, cy = *active_player_view.current.location
         # screen center ('middle')
-        mx, my = (window.width / 2) / 64, (window.height / 2) / 64
+        mx, my = (window.width / 2) / tile_size, (window.height / 2) / tile_size
 
         [ cx - mx, cy - my ]
 
@@ -24,16 +31,6 @@ module Vortex
         [0,0]
       end
     end
-
-    # def apply_velocities!
-    #   if game_view.player_views
-    #     game_view.player_views.each do |player_view|
-    #       apparent = player_view.current
-    #       p [ player_physics: apparent ]
-    #       player_view.update(apparent_location: apparent.location) #, velocity: apparent.velocity, acceleration: apparent.acceleration)
-    #     end
-    #   end
-    # end
 
     def grid
       if world_view
@@ -56,7 +53,6 @@ module Vortex
     end
 
     def world_view
-      # p [ world_view: game_view.world_view ]
       game_view.world_view
     end
 

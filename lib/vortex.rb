@@ -152,7 +152,7 @@ module Vortex
   class JumpCommandHandler
     def handle(player_id:) #, game_id:)
       player = Player.find(player_id)
-      player.jump
+      player.jump if player
     end
   end
 end

@@ -2,7 +2,7 @@ module Vortex
   class ApplicationScreen < Dedalus::Screen
     include Dedalus::Elements
 
-    attr_accessor :grid, :mouse_position, :active_player_name, :player_views, :camera_location
+    attr_accessor :grid, :mouse_position, :active_player_name, :player_views, :camera_location, :scale
 
     def show
       layers
@@ -24,7 +24,8 @@ module Vortex
         greeting: greeting,
         grid: grid,
         player_views: player_views,
-        camera_location: camera_location
+        camera_location: camera_location,
+        scale: scale || 1.0
       )
     end
 
