@@ -13,7 +13,10 @@ module Vortex
         grid: grid,
         camera_location: camera_location,
         scale: scale,
-        player_views: player_views
+        player_views: player_views,
+        tiles_path: 'media/images/tiles.png',
+        tile_width: 64,
+        tile_height: 64
       )
     end
 
