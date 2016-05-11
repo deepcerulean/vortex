@@ -17,7 +17,7 @@ describe ApplicationTemplate do
   let(:view) { template.show }
 
   let(:welcome_message) do
-    view.detect do |element|
+    view.layers.flat_map(&:elements).detect do |element|
       element.is_a?(Dedalus::Elements::Heading)
     end
   end
@@ -42,7 +42,7 @@ describe JumpCommand do
       game_id: 'the_game_id',
       name: "Bob",
       acceleration: [0,0],
-      location: [ 5.0, 8.0 ]
+      location: [ 5.0, 9.0 ]
     )
   end
 

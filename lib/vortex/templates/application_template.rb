@@ -24,6 +24,8 @@ module Vortex
     end
 
     def play_field
+      [
+        Dedalus::Elements::Heading.new(text: "hi there"),
       PlayField.new(
         grid: grid,
         camera_location: camera_location,
@@ -36,6 +38,7 @@ module Vortex
         name: 'app-template-field',
         redraw_tiles: redraw_tiles
       )
+      ]
     end
 
     def self.description
