@@ -1,6 +1,12 @@
 module Vortex
   class Application < Joyce::Application
     viewed_with Vortex::ApplicationView
+      # REALLY
+      def click
+        p [ :app_click ]
+        view.click
+      end
+
 
     def setup(*)
       GameView.create(active_player_id: player_id)
@@ -52,6 +58,10 @@ module Vortex
       end
     end
 
+    def destroy_tile_at(location:)
+      p [ :fire_destroy_tile_command, location: location ]
+      fire(destroy_tile_command(location))
+    end
 
     def player_id
       @player_id ||= SecureRandom.uuid
@@ -78,13 +88,17 @@ module Vortex
       JumpCommand.create(player_id: player_id)
     end
 
+    def destroy_tile_command(location)
+      DestroyTileCommand.create(game_id: game_view.game_id, location: location, player_id: player_id)
+    end
+
     def game_view
       GameView.find_by(active_player_id: player_id)
     end
 
     def self.connect_immediately?
       p [ :connect_immediately? ]
-      true
+      false
     end
   end
 end

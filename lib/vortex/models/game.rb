@@ -32,7 +32,7 @@ module Vortex
     end
 
     def ping(player_id:)
-      p [ ping_from: player_id ]
+      # p [ ping_from: player_id ]
       player = players.where(id: player_id).first
       player.ping if player
     end
@@ -45,6 +45,11 @@ module Vortex
     def halt_player(player_id:)
       player = players.where(id: player_id).first
       player.halt
+    end
+
+    def destroy_tile(player_id:, location:)
+      p [ :game, :destroy_tile!, location: location ]
+      world.remove_tile(location)
     end
 
     private

@@ -1,32 +1,70 @@
 module Vortex
   class ApplicationView < Dedalus::ApplicationView
+    def click
+      puts "APP VIEW CLICK"
+      p [ :app_view_click ]
+      # @click = true
+      composer.click_molecule(
+        app_screen,
+        [window.width, window.height],
+        mouse_position: mouse_position
+      )
+    end
+
     def app_screen
+      redraw_tiles = false
+      if world_view && world_view.redraw_tiles
+        world_view.update(redraw_tiles: false)
+        redraw_tiles = true
+      end
+
       ApplicationScreen.new(
         grid: grid, 
         mouse_position: mouse_position, 
         player_views: player_view_data,
         active_player_name: application.player_name,
         camera_location: camera,
-        scale: scale
+        scale: 1.0,
+        highlight_position: highlight_position,
+        redraw_tiles: redraw_tiles
       )
     end
 
-    def scale
-      0.5
+    def destroy_tile_at(position:)
+      p [ :destroy_tile, at: position ]
+      # convert pos to screen location
+      location = to_map_location(position: position)
+      # p [ :destroy_tile, location: location ]
+      application.destroy_tile_at(location: location)
     end
 
-    def tile_size; 64 * scale end
+    def to_map_location(position:)
+      w,h = tile_size, tile_size
+      x,y = *position
+      cx,cy = *camera
+      # p [ :convert_to_map_coords, position: [x,y], tile_dims: [w,h], cam: [cx,cy] ]
+      [ (x / w) + cx, (y / h) + cy ]
+    end
+
+    def tile_size; 64 end
+
+    def highlight_tile_at(pos)
+      @highlight_position = pos
+    end
+
+    def highlight_position
+      @highlight_position ||= [0,0]
+    end
 
     def camera
+      # return [0,0]
       if active_player_view
         # p [ camera_at: active_player_view.current.location ]
-        # cam
         cx, cy = *active_player_view.current.location
         # screen center ('middle')
         mx, my = (window.width / 2) / tile_size, (window.height / 2) / tile_size
 
         [ cx - mx, cy - my ]
-
       else
         [0,0]
       end
@@ -48,7 +86,7 @@ module Vortex
           location: pv.current.location || [1,1],
           updated_at: pv.updated_at || Time.now,
           color: pv.color || 'gray'
-        } 
+        }
       end
     end
 

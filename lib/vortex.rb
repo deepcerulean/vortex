@@ -21,6 +21,7 @@ require 'vortex/views/player_view'
 require 'vortex/views/world_view'
 
 require 'vortex/molecules/player_avatar'
+require 'vortex/molecules/map_tile'
 require 'vortex/organisms/play_field'
 require 'vortex/templates/application_template'
 require 'vortex/screens/application_screen'
@@ -44,7 +45,7 @@ module Vortex
         game.create_player(
           id: player_id,
           name: player_name,
-          location: [100,GROUND_LEVEL],
+          location: [1,GROUND_LEVEL],
           velocity: [0.0,0.0],
           acceleration: [0,0],
           updated_at: Time.now,
@@ -81,7 +82,7 @@ module Vortex
     def receive(world_id:, grid:, game_id:)
       # p [ :map_generated! ]
       world_view = game_view.world_view || game_view.create_world_view
-      world_view.update(world_id: world_id, map_grid: grid)
+      world_view.update(world_id: world_id, map_grid: grid, redraw_tiles: true)
       # p [ :world_view, :updated_with_map!, world_view ]
     end
   end
@@ -153,6 +154,19 @@ module Vortex
     def handle(player_id:) #, game_id:)
       player = Player.find(player_id)
       player.jump if player
+    end
+  end
+
+  class DestroyTileCommand < Metacosm::Command
+    attr_accessor :game_id, :location, :player_id
+  end
+
+  class DestroyTileCommandHandler
+    def handle(game_id:, location:, player_id:)
+      game = Game.find(game_id)
+      if game
+        game.destroy_tile(player_id: player_id, location: location)
+      end
     end
   end
 end

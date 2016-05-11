@@ -5,7 +5,7 @@ module Vortex
     belongs_to :game
 
     after_create do
-      self.width  ||= 200
+      self.width  ||= 10
       self.height ||= 25
       generate_map(width, height)
     end
@@ -21,6 +21,12 @@ module Vortex
       else
         emit(map_generated)
       end
+    end
+
+    def remove_tile(location)
+      x,y = *location
+      map.grid[y][x] = nil
+      emit(map_generated)
     end
 
     private

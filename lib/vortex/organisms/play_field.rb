@@ -2,7 +2,7 @@ module Vortex
   class PlayField < Dedalus::Elements::SpriteField
     include Dedalus::Elements
 
-    attr_accessor :player_views
+    attr_accessor :player_views, :name, :redraw_tiles
 
     def sprite_map
       if player_views
@@ -25,6 +25,10 @@ module Vortex
       )
     end
 
+    # def tile_class
+    #   @tile_class ||= "Dedalus::Elements::MapTile"
+    # end
+
     def self.description
       'sprites overlaid on an image grid'
     end
@@ -39,7 +43,8 @@ module Vortex
         tiles_path: "media/images/tiles.png",
         tile_width: 64,
         tile_height: 64,
-        camera_location: [2,2],
+        tile_class: "Vortex::MapTile",
+        camera_location: [-2.1,-4.5],
         player_views: [{ location: [4,2], velocity: [-0.2,0] }]
       }
     end
