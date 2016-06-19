@@ -25,12 +25,14 @@ module Vortex
     end
 
     def tick
-      unless self.class.connect_immediately?
-        Game.all.each(&:iterate!)
-      end
 
       @ticks ||= 0
       @ticks += 1
+
+      unless self.class.connect_immediately?
+        Game.all.each(&:iterate!) # if @ticks % 10 == 0
+      end
+      GameView.all.each(&:iterate)
 
       if (@ticks % 30 == 0)
         fire(ping) #

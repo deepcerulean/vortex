@@ -4,5 +4,11 @@ module Vortex
 
     has_one :world_view
     has_many :player_views
+
+    def iterate
+      player_views.each do |player_view|
+        player_view.recompute_location
+      end
+    end
   end
 end
