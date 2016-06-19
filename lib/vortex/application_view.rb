@@ -23,6 +23,7 @@ module Vortex
         mouse_position: mouse_position, 
         player_views: player_view_data,
         active_player_name: application.player_name,
+        active_player_velocity: (active_player_view.velocity rescue nil),
         camera_location: camera,
         scale: 1.0,
         highlight_position: highlight_position,

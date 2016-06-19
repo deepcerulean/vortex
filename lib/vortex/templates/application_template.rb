@@ -25,7 +25,7 @@ module Vortex
 
     def play_field
       [
-        Dedalus::Elements::Heading.new(text: "hi there"),
+        Dedalus::Elements::Heading.new(text: greeting), 
         PlayField.new(
           grid: grid,
           camera_location: camera_location,

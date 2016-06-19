@@ -25,8 +25,7 @@ module Vortex
     end
 
     def tick
-      unless Metacosm::Simulation.current.is_a?(Metacosm::RemoteSimulation)
-        # handle world steps here...
+      unless self.class.connect_immediately?
         Game.all.each(&:iterate!)
       end
 
@@ -103,7 +102,7 @@ module Vortex
     end
 
     def self.connect_immediately?
-      p [ :connect_immediately? ]
+      # p [ :connect_immediately? ]
       false
     end
   end

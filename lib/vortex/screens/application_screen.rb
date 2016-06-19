@@ -2,7 +2,9 @@ module Vortex
   class ApplicationScreen < Dedalus::Screen
     include Dedalus::Elements
 
-    attr_accessor :grid, :mouse_position, :highlight_position, :active_player_name, :player_views, :camera_location, :scale, :redraw_tiles
+    attr_accessor :grid, :mouse_position
+    attr_accessor :highlight_position, :active_player_name, :player_views, :camera_location, :scale, :redraw_tiles
+    attr_accessor :active_player_velocity
 
     def show
       app_template
@@ -23,7 +25,7 @@ module Vortex
     end
 
     def greeting
-      "Hello #{active_player_name}!"
+      "Hello #{active_player_name}! | velocity: #{active_player_velocity} | pos: #{camera_location}"
     end
   end
 end
