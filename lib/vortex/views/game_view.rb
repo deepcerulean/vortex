@@ -6,9 +6,9 @@ module Vortex
     has_many :player_views
 
     def iterate
-      player_views.each do |player_view|
-        player_view.recompute_location
-      end
+      # player_views.each do |player_view|
+      #   player_view.recompute_location
+      # end
     end
   end
 end
