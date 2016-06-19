@@ -34,7 +34,7 @@ module Vortex
       end
       GameView.all.each(&:iterate)
 
-      if (@ticks % 30 == 0)
+      if (@ticks % 120 == 0)
         fire(ping) #
       end
 

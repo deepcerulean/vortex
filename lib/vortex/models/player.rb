@@ -9,17 +9,20 @@ module Vortex
     end
 
     def recompute_location #(map)
-      update(
-        location: current.position,
-        velocity: current.velocity,
-        # acceleration: curr.acceleration,
-        color: color,
-        updated_at: Time.now,
-      )
+      if location != current.position || velocity != current.velocity
+        update(
+          location: current.position,
+          velocity: current.velocity,
+          # acceleration: curr.acceleration,
+          color: color,
+          updated_at: Time.now,
+        )
+      end
     end
 
     def ping
-      update(pinged_at: Time.now)
+      @pinged_at = Time.now
+      # update(pinged_at: Time.now)
     end
 
     def move(direction)
@@ -48,16 +51,21 @@ module Vortex
     protected
 
     def move_rate
-      5
+      3
     end
 
     def jump_power
-      20
+      13
     end
 
     private
     def current
-      body.at(Time.now, obstacles: Physicist::SimpleBody.collection_from_tiles(game.world.map.grid))
+      body.at(
+        Time.now, 
+        obstacles: Physicist::SimpleBody.collection_from_tiles(game.world.map.grid),
+        fixed_timestep: true,
+        planck_time: 0.005
+      )
     end
 
     def body
