@@ -6,10 +6,9 @@ if !ENV['RACK_ENV'] # i.e., we are not on heroku
 end
 
 require 'dedalus'
+require 'physicist'
 
 require 'vortex/version'
-
-require 'vortex/physics'
 
 require 'vortex/models/world'
 require 'vortex/models/map'
@@ -45,7 +44,7 @@ module Vortex
         game.create_player(
           id: player_id,
           name: player_name,
-          location: [1,GROUND_LEVEL],
+          location: [1,GROUND_LEVEL-2],
           velocity: [0.0,0.0],
           acceleration: [0,0],
           updated_at: Time.now,
@@ -119,19 +118,9 @@ module Vortex
   class PlayerUpdatedEventListener < AppEventListener
     def receive(player_id:, game_id:, location:, acceleration:, velocity:, color:, updated_at:, name:)
       player_view = game_view.player_views.where(player_id: player_id).first_or_create
-      # p [ :player_updated,
-      #     location: location,
-      #     location_diff: [player_view.location[0] - location[0], player_view.location[1] - location[1]],
-      #     velocity: velocity,
-      #     velocity_diff: [player_view.velocity[0] - velocity[0], player_view.velocity[1] - velocity[1]],
-      #     acceleration: acceleration ] if player_view.location && location
-
       player_view.update(location: location, name: name, velocity: velocity, acceleration: acceleration, updated_at: updated_at, color: color)
     end
   end
-
-  # class PlayerMovedEvent < PlayerUpdatedEvent; end
-  # class PlayerJumpedEvent < PlayerUpdatedEvent; end
 
   class PlayerDroppedEvent < Metacosm::Event
     attr_accessor :player_id
@@ -147,11 +136,11 @@ module Vortex
   end
 
   class JumpCommand < Metacosm::Command
-    attr_accessor :player_id #, :game_id
+    attr_accessor :player_id
   end
 
   class JumpCommandHandler
-    def handle(player_id:) #, game_id:)
+    def handle(player_id:)
       player = Player.find(player_id)
       player.jump if player
     end

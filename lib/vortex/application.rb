@@ -1,12 +1,12 @@
 module Vortex
   class Application < Joyce::Application
     viewed_with Vortex::ApplicationView
+
       # REALLY
       def click
         p [ :app_click ]
         view.click
       end
-
 
     def setup(*)
       GameView.create(active_player_id: player_id)
@@ -25,8 +25,14 @@ module Vortex
     end
 
     def tick
+      unless Metacosm::Simulation.current.is_a?(Metacosm::RemoteSimulation)
+        # handle world steps here...
+        Game.all.each(&:iterate!)
+      end
+
       @ticks ||= 0
       @ticks += 1
+
       if (@ticks % 30 == 0)
         fire(ping) #
       end

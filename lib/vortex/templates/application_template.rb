@@ -26,18 +26,18 @@ module Vortex
     def play_field
       [
         Dedalus::Elements::Heading.new(text: "hi there"),
-      PlayField.new(
-        grid: grid,
-        camera_location: camera_location,
-        scale: scale,
-        player_views: player_views,
-        tiles_path: 'media/images/tiles.png',
-        tile_width: 64,
-        tile_height: 64,
-        tile_class: "Vortex::MapTile",
-        name: 'app-template-field',
-        redraw_tiles: redraw_tiles
-      )
+        PlayField.new(
+          grid: grid,
+          camera_location: camera_location,
+          scale: scale,
+          player_views: player_views,
+          tiles_path: 'media/images/tiles.png',
+          tile_width: 64,
+          tile_height: 64,
+          tile_class: "Vortex::MapTile",
+          name: 'app-template-field',
+          redraw_tiles: redraw_tiles
+        )
       ]
     end
 

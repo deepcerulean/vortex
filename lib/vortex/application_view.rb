@@ -60,7 +60,7 @@ module Vortex
       # return [0,0]
       if active_player_view
         # p [ camera_at: active_player_view.current.location ]
-        cx, cy = *active_player_view.current.location
+        cx, cy = *active_player_view.current.position # note: location in coord space!
         # screen center ('middle')
         mx, my = (window.width / 2) / tile_size, (window.height / 2) / tile_size
 
@@ -83,7 +83,7 @@ module Vortex
         {
           name: pv.name || "Anonymous",
           velocity: pv.current.velocity || [0,0],
-          location: pv.current.location || [1,1],
+          location: pv.current.position || [1,1],
           updated_at: pv.updated_at || Time.now,
           color: pv.color || 'gray'
         }

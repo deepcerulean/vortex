@@ -3,19 +3,31 @@ module Vortex
     attr_accessor :player_id, :name, :location, :velocity, :acceleration, :updated_at, :color
     belongs_to :game_view
 
+      after_update {
+        @body = construct_body
+      }
+
+
     def current
-      physics.at(Time.now)
+      @body = body.at(Time.now, obstacles: Physicist::SimpleBody.collection_from_tiles(game_view.world_view.map_grid))
     end
 
+      def body
+        # ... integrate physicist bodies ...
+        @body ||= construct_body
+      end
+      
     private
 
-    def physics
-      Physics.new(
-        location: location,
+    def construct_body
+      Physicist::Body.new(
+        position: location,
         velocity: velocity,
-        acceleration: acceleration,
+        dimensions: [2,2],
+        # acceleration: acceleration,
         t0: updated_at,
-        ground_level: Vortex::GROUND_LEVEL
+        # grid: game_view.world_view.map_grid,
+        # ground_level: Vortex::GROUND_LEVEL
       )
     end
   end

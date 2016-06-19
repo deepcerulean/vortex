@@ -6,6 +6,7 @@ gemspec
 gem 'dedalus'
 gem 'dotenv'
 gem 'sinatra'
+gem 'physicist'
 
 group :development do
   gem 'kramdown'
