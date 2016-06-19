@@ -7,10 +7,10 @@ module Vortex
     after_create do
       self.width  ||= 10
       self.height ||= 25
-      generate_map(width, height)
+      generate_map(width: width, height: height)
     end
 
-    def generate_map(width,height)
+    def generate_map(width: 10,height: 10)
       self.map = Map.generate(width, height)
       emit(map_generated)
     end
