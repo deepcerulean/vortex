@@ -3,7 +3,7 @@ module Vortex
     has_one :world
     has_many :players
 
-    after_create { create_world(name: "New Atlantis") }
+    # after_create { create_world(name: "New Atlantis") }
 
     def iterate!
       # check for dropped players

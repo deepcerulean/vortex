@@ -6,8 +6,8 @@ module Vortex
     EMPTY = nil
     ROYAL_BLOCK, EMPTIUM, BRICK, CLOUD = *(0..3)
 
-    def self.generate(width,height)
-      create(grid: construct_grid(width,height))
+    def self.generate(w,h)
+      create(grid: construct_grid(w,h))
     end
 
     protected

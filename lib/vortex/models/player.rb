@@ -9,10 +9,9 @@ module Vortex
     end
 
     def recompute_location #(map)
-      curr = current
       update(
-        location: curr.position,
-        velocity: curr.velocity,
+        location: current.position,
+        velocity: current.velocity,
         # acceleration: curr.acceleration,
         color: color,
         updated_at: Time.now,
@@ -49,7 +48,7 @@ module Vortex
     protected
 
     def move_rate
-      8
+      5
     end
 
     def jump_power

@@ -4,20 +4,16 @@ module Vortex
     has_one :map
     belongs_to :game
 
-    after_create do
-      self.width  ||= 10
-      self.height ||= 25
-      generate_map(width: width, height: height)
-    end
+    after_create :generate_map
 
-    def generate_map(width: 10,height: 10)
-      self.map = Map.generate(width, height)
+    def generate_map
+      self.map ||= Map.generate(width, height)
       emit(map_generated)
     end
 
     def distribute_map
       if self.map.nil?
-        generate_map(width, height)
+        generate_map
       else
         emit(map_generated)
       end

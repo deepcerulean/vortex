@@ -67,7 +67,7 @@ GEM
       pkg-config (~> 1.1.7)
     passive_record (0.4.4)
       activesupport (~> 4.2)
-    physicist (0.1.4)
+    physicist (0.1.6)
     pkg-config (1.1.7)
     pry (0.10.3)
       coderay (~> 1.1.0)

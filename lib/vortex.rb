@@ -40,7 +40,9 @@ module Vortex
       game = Game.find_by(players: { id: player_id })
 
       if game.nil?
+        # fire create game???
         game = Game.first || Game.create
+        game.create_world(name: "New Atlantea", width: 20, height: 20)
         game.create_player(
           id: player_id,
           name: player_name,
