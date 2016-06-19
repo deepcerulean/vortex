@@ -15,7 +15,7 @@ module Vortex
     end
 
     def current
-      body.at(Time.now, obstacles: Physicist::SimpleBody.collection_from_tiles(game_view.world_view.map_grid))
+      body.at(Time.now, obstacles: Physicist::SimpleBody.collection_from_tiles(game_view.world_view.map_grid)) rescue body
     end
 
     def body
