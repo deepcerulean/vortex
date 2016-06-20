@@ -2,11 +2,11 @@ module Vortex
   class Application < Joyce::Application
     viewed_with Vortex::ApplicationView
 
-      # REALLY
-      def click
-        p [ :app_click ]
-        view.click
-      end
+    # TODO move into joyce/dedalus?
+    def click
+      p [ :app_click ]
+      view.click
+    end
 
     def setup(*)
       GameView.create(active_player_id: player_id)
@@ -27,7 +27,6 @@ module Vortex
     def tick
 
       @ticks ||= 0
-      @ticks += 1
 
       unless self.class.connect_immediately?
         Game.all.each(&:iterate!) # if @ticks % 10 == 0
@@ -44,9 +43,15 @@ module Vortex
         fire(move_player(:right))
       end
 
+      if window.button_down?(Gosu::MsLeft)
+        view.click
+      end
+
       if window.button_down?(Gosu::KbUp)
         fire(jump)
       end
+
+      @ticks += 1
     end
 
     def player_view

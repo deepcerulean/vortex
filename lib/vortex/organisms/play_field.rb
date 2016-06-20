@@ -25,10 +25,6 @@ module Vortex
       )
     end
 
-    # def tile_class
-    #   @tile_class ||= "Dedalus::Elements::MapTile"
-    # end
-
     def self.description
       'sprites overlaid on an image grid'
     end

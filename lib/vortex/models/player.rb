@@ -8,30 +8,32 @@ module Vortex
       self.color ||= %w[ red green blue ].sample
     end
 
-    def recompute_location #(map)
-      if location != current.position || velocity != current.velocity
-        update(
-          location: current.position,
-          velocity: current.velocity,
-          # acceleration: curr.acceleration,
-          color: color,
-          updated_at: Time.now,
-        )
-      end
+    def recompute_location
+      t = Time.now
+      c = current(t)
+
+      update(
+        location: c.position,
+        velocity: c.velocity,
+        color: color,
+        updated_at: t
+      )
     end
 
     def ping
       @pinged_at = Time.now
-      # update(pinged_at: Time.now)
     end
 
     def move(direction)
+      t = Time.now
+      c = current(t)
       p [ :player_move, direction ]
-      _,vy = *current.velocity
+      vx,vy = *c.velocity
+      return if vx.abs > move_rate
       if direction == :left
-        update(velocity: [-move_rate,vy], location: current.position, updated_at: Time.now)
+        update(velocity: [-move_rate,vy], location: c.position, updated_at: t)
       elsif direction == :right
-        update(velocity: [move_rate,vy], location: current.position, updated_at: Time.now)
+        update(velocity: [move_rate,vy], location: c.position, updated_at: t)
       else
         raise "Invalid direction #{direction}"
       end
@@ -39,32 +41,32 @@ module Vortex
 
     def jump
       p [ :player_jump! ]
-      vx,vy = *current.velocity
+      t = Time.now
+      c = current(t)
+      vx,vy = *c.velocity
       if vy == 0
         vy = -jump_power
-        update(velocity: [vx,vy], location: current.position, updated_at: Time.now)
-      else
-        false
+        update(velocity: [vx,vy], location: c.position, updated_at: t)
       end
     end
 
     protected
 
     def move_rate
-      3
+      4.5
     end
 
     def jump_power
-      13
+      20
     end
 
     private
-    def current
+    def current(t)
       body.at(
-        Time.now, 
+        t,
         obstacles: Physicist::SimpleBody.collection_from_tiles(game.world.map.grid),
         fixed_timestep: true,
-        planck_time: 0.005
+        planck_time: 0.01
       )
     end
 
@@ -73,9 +75,6 @@ module Vortex
         position: location,
         velocity: velocity,
         dimensions: [2,2],
-        # acceleration: acceleration,
-        # grid: game.world.map.grid,
-        # ground_level: Vortex::GROUND_LEVEL,
         t0: updated_at
       )
     end
